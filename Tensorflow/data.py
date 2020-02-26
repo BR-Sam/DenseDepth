@@ -53,6 +53,7 @@ class DataLoader():
         self.dataset = self.dataset.map(map_func=self._parse_function, num_parallel_calls=tf.data.experimental.AUTOTUNE)
         self.dataset = self.dataset.batch(batch_size=batch_size)
 
-        iterator = self.dataset.make_one_shot_iterator()
-        return iterator
+        # iterator = self.dataset.make_one_shot_iterator()
+        # iterator = self.dataset.__iter__()
+        return self.dataset
 
