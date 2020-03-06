@@ -7,6 +7,16 @@ import os
 
 # Parameters
 
+# Allows more memory usage - Still not enough
+from tensorflow.compat.v1 import ConfigProto
+from tensorflow.compat.v1 import InteractiveSession
+
+config = ConfigProto()
+config.gpu_options.per_process_gpu_memory_fraction = 0.9
+config.gpu_options.allow_growth = True
+session = InteractiveSession(config=config)
+# End of memory patch
+
 batch_size = 8
 learning_rate = 0.0001
 epochs = 10
@@ -34,5 +44,5 @@ model.fit(train_generator, epochs=3, steps_per_epoch=100, shuffle=True, callback
 converter = tensorflow.lite.TFLiteConverter.from_keras_model(model)
 tfl_model = converter.convert()
 
-open("./depth_trained.tflite", "wb").write(tfl_model)
+open("./depth_trained2.tflite", "wb").write(tfl_model)
 
